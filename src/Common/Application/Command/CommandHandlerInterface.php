@@ -6,5 +6,4 @@ namespace App\Common\Application\Command;
 
 interface CommandHandlerInterface
 {
-    public function __invoke(CommandInterface $command): void;
 }

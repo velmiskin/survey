@@ -6,13 +6,13 @@ declare(strict_types=1);
 namespace App\Component\User\Application\Command;
 
 use App\Common\Application\Command\CommandInterface;
-use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final readonly class ChangeUserPasswordCommand implements CommandInterface
 {
     public function __construct(
-        private Uuid $userId,
-        private string $newPassword
+        public UuidInterface $userId,
+        public string $newPassword
     ) {
     }
 }

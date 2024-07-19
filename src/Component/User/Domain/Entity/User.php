@@ -6,8 +6,8 @@ namespace App\Component\User\Domain\Entity;
 
 use App\Common\Domain\AggregateRoot;
 use App\Common\Domain\ValueObject\Email;
-use App\Component\User\Domain\Event\UserCreatedEvent;
 use App\Component\User\Domain\Event\UserPasswordChangedEvent;
+use App\Component\User\Domain\Event\UserRegisteredEvent;
 use App\Component\User\Domain\Exception\InvalidEmailException;
 use App\Component\User\Domain\Exception\InvalidPasswordException;
 use App\Component\User\Domain\Specification\UniqueEmailSpecificationInterface;
@@ -30,15 +30,41 @@ final class User extends AggregateRoot
         private Password $password,
         private readonly Role $role,
         private readonly DateTimeImmutable $createdAt,
-        UniqueEmailSpecificationInterface $uniqueEmailSpecification,
+        private readonly UniqueEmailSpecificationInterface $uniqueEmailSpecification,
     ) {
-        $uniqueEmailSpecification->isUnique((string)$email);
-        $this->record(new UserCreatedEvent($this->id, $this->email, $this->firstName, $this->lastName, $this->role, $this->createdAt));
+    }
+
+    public function getPassword(): Password
+    {
+        return $this->password;
+    }
+
+    public function register(): void
+    {
+        if (!$this->uniqueEmailSpecification->isUnique((string)$this->email)) {
+            throw new InvalidEmailException('Email is not unique');
+        }
+
+        $this->record(
+            new UserRegisteredEvent(
+                $this->getId(),
+                $this->getEmail(),
+                $this->getFirstName(),
+                $this->getLastName(),
+                $this->getRole(),
+                $this->getCreatedAt()
+            )
+        );
     }
 
     public function getId(): UuidInterface
     {
         return $this->id;
+    }
+
+    public function getEmail(): Email
+    {
+        return $this->email;
     }
 
     public function getFirstName(): string
@@ -49,16 +75,6 @@ final class User extends AggregateRoot
     public function getLastName(): string
     {
         return $this->lastName;
-    }
-
-    public function getEmail(): Email
-    {
-        return $this->email;
-    }
-
-    public function getPassword(): Password
-    {
-        return $this->password;
     }
 
     public function getRole(): Role

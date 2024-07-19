@@ -10,7 +10,7 @@ use Ramsey\Uuid\UuidInterface;
 final readonly class UserPasswordChangedEvent implements EventInterface
 {
     public function __construct(
-        private UuidInterface $userId,
+        public UuidInterface $userId,
     ) {
     }
 }

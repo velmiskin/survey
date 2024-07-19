@@ -7,7 +7,7 @@ namespace App\Component\User\Application\Command;
 use App\Common\Application\Command\CommandInterface;
 use Ramsey\Uuid\UuidInterface;
 
-final readonly class CreateUserCommand implements CommandInterface
+final readonly class RegisterUserCommand implements CommandInterface
 {
     public function __construct(
         public UuidInterface $uuid,

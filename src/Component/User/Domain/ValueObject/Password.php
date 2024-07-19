@@ -22,6 +22,11 @@ class Password
         $this->password = $password;
     }
 
+    private function validatePassword(string $password): bool
+    {
+        return strlen($password) < 8;
+    }
+
     public function __toString(): string
     {
         return $this->password;
@@ -29,11 +34,6 @@ class Password
 
     public function equals(Password $password): bool
     {
-        return $this->password === (string) $password;
-    }
-
-    private function validatePassword(string $email): bool
-    {
-        return strlen($email) < 8;
+        return $this->password === (string)$password;
     }
 }

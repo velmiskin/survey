@@ -2,10 +2,12 @@
 
 namespace App\Component\User\Domain\Exception;
 
-class InvalidEmailException extends \DomainException
+use DomainException;
+
+class InvalidEmailException extends DomainException
 {
-    public function __construct()
+    public function __construct(?string $message)
     {
-        parent::__construct('Invalid email');
+        parent::__construct($message ?? 'Invalid email format');
     }
 }
