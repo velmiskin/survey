@@ -78,6 +78,7 @@
     "liip/test-fixtures-bundle": "^2.0.0",
     "phpstan/phpstan": "*",
     "phpunit/phpunit": "^11.2",
+    "roave/security-advisories": "dev-latest",
     "symfony/browser-kit": "7.1.*",
     "symfony/css-selector": "7.1.*",
     "symfony/phpunit-bridge": "^7.1",
