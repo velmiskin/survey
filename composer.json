@@ -72,6 +72,7 @@
     }
   },
   "require-dev": {
+    "buggregator/trap": "^1.10",
     "dama/doctrine-test-bundle": "^8.2",
     "dg/bypass-finals": "^1.8",
     "doctrine/doctrine-fixtures-bundle": "^3.6",
