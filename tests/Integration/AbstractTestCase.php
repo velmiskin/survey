@@ -5,7 +5,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration;
 
-use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
+use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -19,7 +19,8 @@ class AbstractTestCase extends KernelTestCase
 
     protected readonly ContainerInterface $container;
     protected readonly MessageBusInterface $commandBus;
-    protected readonly DatabaseToolCollection $databaseTool;
+
+    protected readonly EntityManagerInterface $entityManager;
 
     /**
      * @throws ContainerExceptionInterface
@@ -31,7 +32,7 @@ class AbstractTestCase extends KernelTestCase
 
         $this->container = static::getContainer();
         $this->commandBus = $this->container->get(MessageBusInterface::class);
-        $this->databaseTool = $this->container->get(DatabaseToolCollection::class);
+        $this->entityManager = $this->container->get(EntityManagerInterface::class);
     }
 
 }

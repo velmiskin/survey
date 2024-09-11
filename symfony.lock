@@ -50,9 +50,6 @@
             "migrations/.gitignore"
         ]
     },
-    "liip/test-fixtures-bundle": {
-        "version": "2.9.1"
-    },
     "nyholm/psr7": {
         "version": "1.8",
         "recipe": {
@@ -184,6 +181,18 @@
         "files": [
             "config/packages/routing.yaml",
             "config/routes.yaml"
+        ]
+    },
+    "zenstruck/foundry": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.10",
+            "ref": "37c2f894cc098ab4c08874b80cccc8e2f8de7976"
+        },
+        "files": [
+            "config/packages/zenstruck_foundry.yaml"
         ]
     },
     "zenstruck/messenger-test": {

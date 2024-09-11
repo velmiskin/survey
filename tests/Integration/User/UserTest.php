@@ -5,9 +5,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration\User;
 
-use App\Common\Infrastructure\DataFixtures\UserFixtures;
 use App\Component\User\Application\Command\ChangeUserPasswordCommand;
 use App\Component\User\Application\Command\RegisterUserCommand;
+use App\Component\User\Infrastructure\Doctrine\Entity\User;
+use App\Tests\Factory\UserFactory;
 use App\Tests\Integration\AbstractTestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -29,14 +30,17 @@ final class UserTest extends AbstractTestCase
 
     public function testChangeUserPasswordCommand(): void
     {
-        $this->databaseTool->loadFixtures([
-            UserFixtures::class,
-        ]);
-        $command = new ChangeUserPasswordCommand(Uuid::fromString('f1b5f3b3-7f7b-4b8b-8b1e-3e1f0f3f3f3f'), 'newPassword');
+        /** @var User $user */
+        $user = UserFactory::createOne();
+
+        $command = new ChangeUserPasswordCommand($user->getId(), 'newPassword8');
         $this->commandBus->dispatch($command);
         $this->bus('command.bus')->dispatched()->assertCount(1);
         $this->bus('event.bus')->dispatched()->assertCount(1);
 
+        $updatedUser = $this->entityManager->find(User::class, $user->getId());
+
+        self::assertNotEquals($user->getPassword(), $updatedUser->getPassword());
     }
 
 }

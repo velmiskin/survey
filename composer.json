@@ -76,13 +76,13 @@
     "dama/doctrine-test-bundle": "^8.2",
     "dg/bypass-finals": "^1.8",
     "doctrine/doctrine-fixtures-bundle": "^3.6",
-    "liip/test-fixtures-bundle": "^2.0.0",
     "phpstan/phpstan": "*",
     "phpunit/phpunit": "^11.2",
     "roave/security-advisories": "dev-latest",
     "symfony/browser-kit": "7.1.*",
     "symfony/css-selector": "7.1.*",
     "symfony/phpunit-bridge": "^7.1",
+    "zenstruck/foundry": "^2.0",
     "zenstruck/messenger-test": "^1.9"
   }
 }
