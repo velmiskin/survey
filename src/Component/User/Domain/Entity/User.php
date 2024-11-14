@@ -10,8 +10,9 @@ use App\Component\User\Domain\Event\UserPasswordChangedEvent;
 use App\Component\User\Domain\Event\UserRegisteredEvent;
 use App\Component\User\Domain\Exception\InvalidEmailException;
 use App\Component\User\Domain\Exception\InvalidPasswordException;
+use App\Component\User\Domain\Exception\NonUniqueEmailException;
 use App\Component\User\Domain\Specification\UniqueEmailSpecificationInterface;
-use App\Component\User\Domain\ValueObject\Password;
+use App\Component\User\Domain\ValueObject\HashedPassword;
 use App\Component\User\Domain\ValueObject\Role;
 use DateTimeImmutable;
 use Ramsey\Uuid\UuidInterface;
@@ -27,14 +28,14 @@ final class User extends AggregateRoot
         private readonly Email $email,
         private string $firstName,
         private string $lastName,
-        private Password $password,
+        private HashedPassword $password,
         private readonly Role $role,
         private readonly DateTimeImmutable $createdAt,
         private readonly UniqueEmailSpecificationInterface $uniqueEmailSpecification,
     ) {
     }
 
-    public function getPassword(): Password
+    public function getPassword(): HashedPassword
     {
         return $this->password;
     }
@@ -42,7 +43,7 @@ final class User extends AggregateRoot
     public function register(): void
     {
         if (!$this->uniqueEmailSpecification->isUnique((string)$this->email)) {
-            throw new InvalidEmailException('Email is not unique');
+            throw new NonUniqueEmailException();
         }
 
         $this->record(
@@ -90,7 +91,7 @@ final class User extends AggregateRoot
     /**
      * @throws InvalidEmailException
      */
-    public function changePassword(Password $password): void
+    public function changePassword(HashedPassword $password): void
     {
         $this->password = $password;
         $this->record(new UserPasswordChangedEvent($this->id));

@@ -11,7 +11,7 @@ use App\Component\User\Domain\Enum\Role as RoleEnum;
 use App\Component\User\Domain\Exception\InvalidEmailException;
 use App\Component\User\Domain\Exception\InvalidPasswordException;
 use App\Component\User\Domain\Specification\UniqueEmailSpecificationInterface;
-use App\Component\User\Domain\ValueObject\Password;
+use App\Component\User\Domain\ValueObject\HashedPassword;
 use App\Component\User\Domain\ValueObject\Role;
 use DateTimeImmutable;
 use Ramsey\Uuid\UuidInterface;
@@ -61,7 +61,7 @@ final readonly class UserFactory
             new Email($email),
             $firstName,
             $lastName,
-            new Password($password),
+            HashedPassword::createFormPlain($password),
             new Role(RoleEnum::from($role)),
             $createdAt,
             $this->uniqueEmailSpecification

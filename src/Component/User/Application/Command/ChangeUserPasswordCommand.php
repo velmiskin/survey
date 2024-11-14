@@ -12,6 +12,7 @@ final readonly class ChangeUserPasswordCommand implements CommandInterface
 {
     public function __construct(
         public UuidInterface $userId,
+        public string $oldPassword,
         public string $newPassword
     ) {
     }

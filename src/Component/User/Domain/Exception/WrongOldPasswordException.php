@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
+
 namespace App\Component\User\Domain\Exception;
 
 use DomainException;
 
-class InvalidPasswordException extends DomainException
+class WrongOldPasswordException extends DomainException
 {
-    public const MESSAGE = 'Password must be at least 8 characters long.';
+    public const MESSAGE = 'Old password is wrong';
 
     public function __construct()
     {

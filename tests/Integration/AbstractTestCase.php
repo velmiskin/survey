@@ -20,7 +20,7 @@ class AbstractTestCase extends KernelTestCase
     protected readonly ContainerInterface $container;
     protected readonly MessageBusInterface $commandBus;
 
-    protected readonly EntityManagerInterface $entityManager;
+    protected ?EntityManagerInterface $entityManager;
 
     /**
      * @throws ContainerExceptionInterface
@@ -33,6 +33,14 @@ class AbstractTestCase extends KernelTestCase
         $this->container = static::getContainer();
         $this->commandBus = $this->container->get(MessageBusInterface::class);
         $this->entityManager = $this->container->get(EntityManagerInterface::class);
+    }
+
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        $this->entityManager->close();
+        $this->entityManager = null;
     }
 
 }

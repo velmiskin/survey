@@ -9,8 +9,10 @@ use DomainException;
 
 class UserNotFoundException extends DomainException
 {
+    public const MESSAGE = 'User not found';
+
     public function __construct()
     {
-        parent::__construct('User not found');
+        parent::__construct(static::MESSAGE);
     }
 }

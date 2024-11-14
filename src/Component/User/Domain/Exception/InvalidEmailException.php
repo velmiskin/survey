@@ -6,8 +6,10 @@ use DomainException;
 
 class InvalidEmailException extends DomainException
 {
-    public function __construct(?string $message)
+    public const MESSAGE = 'Invalid email format';
+
+    public function __construct()
     {
-        parent::__construct($message ?? 'Invalid email format');
+        parent::__construct(static::MESSAGE);
     }
 }
