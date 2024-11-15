@@ -7,6 +7,9 @@ use App\Component\User\Infrastructure\Doctrine\Entity\User;
 use Ramsey\Uuid\Uuid;
 use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
 
+/**
+ * @extends PersistentObjectFactory<User>
+ */
 final class UserFactory extends PersistentObjectFactory
 {
     public static function class(): string

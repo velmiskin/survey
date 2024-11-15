@@ -10,6 +10,9 @@ use App\Component\User\Infrastructure\Doctrine\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+/**
+ * @extends ServiceEntityRepository<User>
+ */
 class SpecificationRepository extends ServiceEntityRepository implements UniqueEmailSpecificationInterface
 {
     public function __construct(

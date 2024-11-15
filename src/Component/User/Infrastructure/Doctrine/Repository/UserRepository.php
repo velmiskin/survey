@@ -14,6 +14,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @extends ServiceEntityRepository<DoctrineUser>
+ */
 final class UserRepository extends ServiceEntityRepository implements UserStorageInterface, UserPresenterInterface
 {
     public function __construct(
@@ -64,10 +67,11 @@ final class UserRepository extends ServiceEntityRepository implements UserStorag
         );
     }
 
-    public function findAll(): array
+    /**
+     * @return list<User>
+     */
+    public function getAll(): array
     {
-        $users = $this->findBy([]);
-
         return array_map(function (DoctrineUser $user) {
             return $this->userFactory->create(
                 $user->getId(),
@@ -78,6 +82,6 @@ final class UserRepository extends ServiceEntityRepository implements UserStorag
                 $user->getRole(),
                 $user->getCreatedAt()
             );
-        }, $users);
+        }, $this->findAll());
     }
 }
