@@ -9,7 +9,6 @@ use App\Common\Domain\ValueObject\Email;
 use App\Component\User\Domain\Event\UserPasswordChangedEvent;
 use App\Component\User\Domain\Event\UserRegisteredEvent;
 use App\Component\User\Domain\Exception\InvalidEmailException;
-use App\Component\User\Domain\Exception\InvalidPasswordException;
 use App\Component\User\Domain\Exception\NonUniqueEmailException;
 use App\Component\User\Domain\Specification\UniqueEmailSpecificationInterface;
 use App\Component\User\Domain\ValueObject\HashedPassword;
@@ -19,10 +18,6 @@ use Ramsey\Uuid\UuidInterface;
 
 final class User extends AggregateRoot
 {
-    /**
-     * @throws InvalidEmailException
-     * @throws InvalidPasswordException
-     */
     public function __construct(
         private readonly UuidInterface $id,
         private readonly Email $email,
