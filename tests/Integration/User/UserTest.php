@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Tests\Integration\User;
 
 use App\Component\User\Application\Command\ChangeUserPasswordCommand;
@@ -74,5 +73,4 @@ final class UserTest extends AbstractTestCase
         $this->expectExceptionMessage(UserNotFoundException::MESSAGE);
         $this->commandBus->dispatch($command);
     }
-
 }

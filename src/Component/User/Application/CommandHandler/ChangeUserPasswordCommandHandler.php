@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Component\User\Application\CommandHandler;
 
 use App\Common\Application\Bus\EventBusInterface;
@@ -24,7 +23,6 @@ final readonly class ChangeUserPasswordCommandHandler implements CommandHandlerI
     }
 
     /**
-     * @param ChangeUserPasswordCommand $command
      * @throws UserNotFoundException
      */
     public function __invoke(ChangeUserPasswordCommand $command): void
@@ -43,5 +41,4 @@ final readonly class ChangeUserPasswordCommandHandler implements CommandHandlerI
         $this->userStorage->store($user);
         $this->eventBus->dispatchMany($user->pullEvents());
     }
-
 }

@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Tests\Integration;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -42,5 +41,4 @@ class AbstractTestCase extends KernelTestCase
         $this->entityManager->close();
         $this->entityManager = null;
     }
-
 }

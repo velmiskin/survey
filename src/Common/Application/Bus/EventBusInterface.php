@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Common\Application\Bus;
 
 use App\Common\Domain\EventInterface;

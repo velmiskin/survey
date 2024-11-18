@@ -22,7 +22,6 @@ final readonly class RegisterUserCommandHandler implements CommandHandlerInterfa
     }
 
     /**
-     * @param RegisterUserCommand $command
      * @throws InvalidEmailException
      * @throws InvalidPasswordException
      */
@@ -39,6 +38,5 @@ final readonly class RegisterUserCommandHandler implements CommandHandlerInterfa
         );
 
         $this->userStorage->store($user);
-
     }
 }

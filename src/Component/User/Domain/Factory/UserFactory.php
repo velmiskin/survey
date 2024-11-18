@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Component\User\Domain\Factory;
 
 use App\Common\Domain\ValueObject\Email;
@@ -13,13 +12,12 @@ use App\Component\User\Domain\Exception\InvalidPasswordException;
 use App\Component\User\Domain\Specification\UniqueEmailSpecificationInterface;
 use App\Component\User\Domain\ValueObject\HashedPassword;
 use App\Component\User\Domain\ValueObject\Role;
-use DateTimeImmutable;
 use Ramsey\Uuid\UuidInterface;
 
 final readonly class UserFactory
 {
     public function __construct(
-        private UniqueEmailSpecificationInterface $uniqueEmailSpecification
+        private UniqueEmailSpecificationInterface $uniqueEmailSpecification,
     ) {
     }
 
@@ -34,7 +32,7 @@ final readonly class UserFactory
         string $firstName,
         string $lastName,
         string $role,
-        DateTimeImmutable $createdAt
+        \DateTimeImmutable $createdAt,
     ): User {
         $user = $this->create($id, $email, $password, $firstName, $lastName, $role, $createdAt);
         $user->register();
@@ -53,9 +51,8 @@ final readonly class UserFactory
         string $firstName,
         string $lastName,
         string $role,
-        DateTimeImmutable $createdAt
+        \DateTimeImmutable $createdAt,
     ): User {
-
         return new User(
             $id,
             new Email($email),
@@ -67,5 +64,4 @@ final readonly class UserFactory
             $this->uniqueEmailSpecification
         );
     }
-
 }

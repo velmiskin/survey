@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Component\User\Domain\ValueObject;
 
 use App\Component\User\Domain\Exception\InvalidPasswordException;
-use Stringable;
 
-class HashedPassword implements Stringable
+class HashedPassword implements \Stringable
 {
     private string $password = '';
 

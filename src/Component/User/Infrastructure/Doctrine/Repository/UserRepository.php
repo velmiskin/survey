@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Component\User\Infrastructure\Doctrine\Repository;
 
 use App\Component\User\Domain\Entity\User;
@@ -21,7 +20,7 @@ final class UserRepository extends ServiceEntityRepository implements UserStorag
 {
     public function __construct(
         private readonly UserFactory $userFactory,
-        ManagerRegistry $registry
+        ManagerRegistry $registry,
     ) {
         parent::__construct($registry, DoctrineUser::class);
     }
@@ -33,26 +32,25 @@ final class UserRepository extends ServiceEntityRepository implements UserStorag
         if (!$doctrineUser) {
             $doctrineUser = (new DoctrineUser())
                 ->setId($user->getId())
-                ->setEmail((string)$user->getEmail())
+                ->setEmail((string) $user->getEmail())
                 ->setCreatedAt($user->getCreatedAt());
         }
 
         $doctrineUser
             ->setFirstName($user->getFirstName())
             ->setLastName($user->getLastName())
-            ->setPassword((string)$user->getPassword())
-            ->setRole((string)$user->getRole());
+            ->setPassword((string) $user->getPassword())
+            ->setRole((string) $user->getRole());
 
         $this->getEntityManager()->persist($doctrineUser);
         $this->getEntityManager()->flush();
     }
 
-
     public function findById(UuidInterface $id): ?User
     {
         $user = $this->find($id->toString());
 
-        if ($user === null) {
+        if (null === $user) {
             return null;
         }
 

@@ -2,12 +2,9 @@
 
 declare(strict_types=1);
 
-
 namespace App\Component\User\Application\Exception;
 
-use DomainException;
-
-class UserNotFoundException extends DomainException
+class UserNotFoundException extends \DomainException
 {
     public const MESSAGE = 'User not found';
 

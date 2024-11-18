@@ -13,7 +13,6 @@ use App\Component\User\Domain\Exception\NonUniqueEmailException;
 use App\Component\User\Domain\Specification\UniqueEmailSpecificationInterface;
 use App\Component\User\Domain\ValueObject\HashedPassword;
 use App\Component\User\Domain\ValueObject\Role;
-use DateTimeImmutable;
 use Ramsey\Uuid\UuidInterface;
 
 final class User extends AggregateRoot
@@ -25,7 +24,7 @@ final class User extends AggregateRoot
         private string $lastName,
         private HashedPassword $password,
         private readonly Role $role,
-        private readonly DateTimeImmutable $createdAt,
+        private readonly \DateTimeImmutable $createdAt,
         private readonly UniqueEmailSpecificationInterface $uniqueEmailSpecification,
     ) {
     }
@@ -37,7 +36,7 @@ final class User extends AggregateRoot
 
     public function register(): void
     {
-        if (!$this->uniqueEmailSpecification->isUnique((string)$this->email)) {
+        if (!$this->uniqueEmailSpecification->isUnique((string) $this->email)) {
             throw new NonUniqueEmailException();
         }
 
@@ -78,7 +77,7 @@ final class User extends AggregateRoot
         return $this->role;
     }
 
-    public function getCreatedAt(): DateTimeImmutable
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }

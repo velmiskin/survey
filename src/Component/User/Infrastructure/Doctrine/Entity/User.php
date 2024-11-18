@@ -2,39 +2,37 @@
 
 declare(strict_types=1);
 
-
 namespace App\Component\User\Infrastructure\Doctrine\Entity;
 
 use App\Component\User\Infrastructure\Doctrine\Repository\UserRepository;
-use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[ORM\Table(name: "users")]
+#[ORM\Table(name: 'users')]
 class User
 {
     #[ORM\Id]
-    #[ORM\Column(type: "uuid", unique: true)]
+    #[ORM\Column(type: 'uuid', unique: true)]
     private UuidInterface $id;
 
-    #[ORM\Column(type: "string", unique: true)]
+    #[ORM\Column(type: 'string', unique: true)]
     private string $email;
 
-    #[ORM\Column(type: "string")]
+    #[ORM\Column(type: 'string')]
     private string $firstName;
 
-    #[ORM\Column(type: "string")]
+    #[ORM\Column(type: 'string')]
     private string $lastName;
 
-    #[ORM\Column(type: "string")]
+    #[ORM\Column(type: 'string')]
     private string $password;
 
-    #[ORM\Column(type: "string")]
+    #[ORM\Column(type: 'string')]
     private string $role;
 
-    #[ORM\Column(type: "datetime_immutable")]
-    private DateTimeImmutable $createdAt;
+    #[ORM\Column(type: 'datetime_immutable')]
+    private \DateTimeImmutable $createdAt;
 
     public function getId(): UuidInterface
     {
@@ -108,12 +106,12 @@ class User
         return $this;
     }
 
-    public function getCreatedAt(): DateTimeImmutable
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeImmutable $createdAt): User
+    public function setCreatedAt(\DateTimeImmutable $createdAt): User
     {
         $this->createdAt = $createdAt;
 

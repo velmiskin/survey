@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-
 namespace App\Common\Infrastructure\Bus;
 
 use App\Common\Application\Bus\CommandBusInterface;
 use App\Common\Application\Command\CommandInterface;
-use Exception;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 class MessengerCommandBus implements CommandBusInterface
@@ -20,8 +18,8 @@ class MessengerCommandBus implements CommandBusInterface
     {
         try {
             $this->messageBus->dispatch($command);
-        } catch (Exception) {
-            //@todo log error
+        } catch (\Exception) {
+            // @todo log error
         }
     }
 }

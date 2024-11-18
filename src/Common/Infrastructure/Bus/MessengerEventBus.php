@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 namespace App\Common\Infrastructure\Bus;
 
 use App\Common\Application\Bus\EventBusInterface;
@@ -13,12 +12,13 @@ use Symfony\Component\Messenger\MessageBusInterface;
 class MessengerEventBus implements EventBusInterface
 {
     public function __construct(
-        private readonly MessageBusInterface $eventBus
+        private readonly MessageBusInterface $eventBus,
     ) {
     }
 
     /**
      * @param EventInterface[] $events
+     *
      * @throws ExceptionInterface
      */
     public function dispatchMany(array $events): void
@@ -35,5 +35,4 @@ class MessengerEventBus implements EventBusInterface
     {
         $this->eventBus->dispatch($event);
     }
-
 }
