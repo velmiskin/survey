@@ -24,6 +24,12 @@ doctrine:
         dir: '%kernel.project_dir%/src/Component/User/Infrastructure/Doctrine/Entity'
         prefix: 'App\Component\User\Infrastructure\Doctrine\Entity'
         alias: App\Component\User
+      App\Component\Company:
+        type: attribute
+        is_bundle: false
+        dir: '%kernel.project_dir%/src/Component/Company/Infrastructure/Doctrine/Entity'
+        prefix: 'App\Component\Company\Infrastructure\Doctrine\Entity'
+        alias: App\Component\Company
     controller_resolver:
       auto_mapping: false
 
