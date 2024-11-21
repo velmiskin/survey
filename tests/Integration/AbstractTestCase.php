@@ -10,11 +10,13 @@ use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Zenstruck\Foundry\Test\ResetDatabase;
 use Zenstruck\Messenger\Test\InteractsWithMessenger;
 
 class AbstractTestCase extends KernelTestCase
 {
     use InteractsWithMessenger;
+    use ResetDatabase;
 
     protected readonly ContainerInterface $container;
     protected readonly MessageBusInterface $commandBus;
