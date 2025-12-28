@@ -8,5 +8,5 @@ use App\Common\Application\Query\QueryInterface;
 
 interface QueryBusInterface
 {
-    public function handle(QueryInterface $query): void;
+    public function query(QueryInterface $query): mixed;
 }

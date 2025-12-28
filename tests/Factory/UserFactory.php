@@ -24,7 +24,8 @@ final class UserFactory extends PersistentObjectFactory
             'email' => self::faker()->email(),
             'firstName' => self::faker()->firstName(),
             'lastName' => self::faker()->lastName(),
-            'password' => self::faker()->password(8),
+            // Default password is "password" hashed with bcrypt for testing
+            'password' => password_hash('password', PASSWORD_BCRYPT),
             'role' => self::faker()->randomElement(Role::cases())->value,
             'createdAt' => self::faker()->dateTimeBetween('-1 year', 'now'),
         ];

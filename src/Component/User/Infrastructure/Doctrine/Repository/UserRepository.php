@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Component\User\Infrastructure\Doctrine\Repository;
 
+use App\Common\Domain\ValueObject\Email;
 use App\Component\User\Domain\Entity\User;
 use App\Component\User\Domain\Factory\UserFactory;
 use App\Component\User\Domain\Presenter\UserPresenterInterface;
@@ -54,7 +55,26 @@ final class UserRepository extends ServiceEntityRepository implements UserStorag
             return null;
         }
 
-        return $this->userFactory->create(
+        return $this->userFactory->fromStorage(
+            $user->getId(),
+            $user->getEmail(),
+            $user->getPassword(),
+            $user->getFirstName(),
+            $user->getLastName(),
+            $user->getRole(),
+            $user->getCreatedAt()
+        );
+    }
+
+    public function findByEmail(Email $email): ?User
+    {
+        $user = $this->findOneBy(['email' => (string) $email]);
+
+        if (null === $user) {
+            return null;
+        }
+
+        return $this->userFactory->fromStorage(
             $user->getId(),
             $user->getEmail(),
             $user->getPassword(),
@@ -71,7 +91,7 @@ final class UserRepository extends ServiceEntityRepository implements UserStorag
     public function getAll(): array
     {
         return array_map(function (DoctrineUser $user) {
-            return $this->userFactory->create(
+            return $this->userFactory->fromStorage(
                 $user->getId(),
                 $user->getEmail(),
                 $user->getPassword(),

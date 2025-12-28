@@ -7,10 +7,12 @@ namespace App\Component\User\Infrastructure\Doctrine\Entity;
 use App\Component\User\Infrastructure\Doctrine\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: 'users')]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\Column(type: 'uuid', unique: true)]
@@ -116,5 +118,27 @@ class User
         $this->createdAt = $createdAt;
 
         return $this;
+    }
+
+    // Symfony UserInterface methods
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getRoles(): array
+    {
+        // Guarantee every user has at least ROLE_USER
+        return [$this->role];
+    }
+
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // We don't store plain passwords, so nothing to erase
     }
 }

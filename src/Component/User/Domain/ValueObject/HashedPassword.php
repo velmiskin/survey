@@ -30,6 +30,14 @@ class HashedPassword implements \Stringable
         return $instance;
     }
 
+    public static function fromHash(string $hashedPassword): self
+    {
+        $instance = new self();
+        $instance->password = $hashedPassword;
+
+        return $instance;
+    }
+
     private function validatePassword(string $password): bool
     {
         return strlen($password) >= 8;

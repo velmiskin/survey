@@ -64,4 +64,30 @@ final readonly class UserFactory
             $this->uniqueEmailSpecification
         );
     }
+
+    /**
+     * Create a user from storage with already hashed password
+     *
+     * @throws InvalidEmailException
+     */
+    public function fromStorage(
+        UuidInterface $id,
+        string $email,
+        string $hashedPassword,
+        string $firstName,
+        string $lastName,
+        string $role,
+        \DateTimeImmutable $createdAt,
+    ): User {
+        return new User(
+            $id,
+            new Email($email),
+            $firstName,
+            $lastName,
+            HashedPassword::fromHash($hashedPassword),
+            new Role(RoleEnum::from($role)),
+            $createdAt,
+            $this->uniqueEmailSpecification
+        );
+    }
 }
